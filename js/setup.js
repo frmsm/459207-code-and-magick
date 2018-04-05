@@ -35,44 +35,50 @@ var eyesColors = ['black',
   'yellow',
   'green'];
 
-var wizards = [{
-  name: firstNames[Math.floor(Math.random() * firstNames.length)]
-  + ' ' + firstNames[Math.floor(Math.random() * lastNames.length)],
-  coatColor: coatColors[Math.floor(Math.random() * coatColors.length)],
-  eyesColor: eyesColors[Math.floor(Math.random() * eyesColors.length)]
-}, {
-  name: firstNames[Math.floor(Math.random() * firstNames.length)]
-  + ' ' + firstNames[Math.floor(Math.random() * lastNames.length)],
-  coatColor: coatColors[Math.floor(Math.random() * coatColors.length)],
-  eyesColor: eyesColors[Math.floor(Math.random() * eyesColors.length)]
-}, {
-  name: firstNames[Math.floor(Math.random() * firstNames.length)]
-  + ' ' + firstNames[Math.floor(Math.random() * lastNames.length)],
-  coatColor: coatColors[Math.floor(Math.random() * coatColors.length)],
-  eyesColor: eyesColors[Math.floor(Math.random() * eyesColors.length)]
-}, {
-  name: firstNames[Math.floor(Math.random() * firstNames.length)]
-  + ' ' + firstNames[Math.floor(Math.random() * lastNames.length)],
-  coatColor: coatColors[Math.floor(Math.random() * coatColors.length)],
-  eyesColor: eyesColors[Math.floor(Math.random() * eyesColors.length)]
-}];
+var random = function (wizardAttribute) {
+  return wizardAttribute[Math.floor(Math.random() * wizardAttribute.length)];
+};
+
+// Формирование объектов
+var wizards = [];
+var wizardsCount = 4;
+
+var wizardsSetup = function (objArray,count) {
+  for (var i = 0; i < count; i++) {
+    objArray[i] = {
+      name: random(firstNames) + ' ' + random(lastNames),
+      coatColor: random(coatColors),
+      eyesColor: random(eyesColors),
+    };
+  }
+};
+
+wizardsSetup(wizards, wizardsCount);
 
 // Вставка персонажей
 var templateElement = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-var setupFragment = document.createDocumentFragment();
 
-for (var i = 0; i < wizards.length; i++) {
-  var wizardElement = templateElement.cloneNode(true);
-  var wizardNode = wizardElement.querySelector('.wizard');
-  wizardElement.children[1].textContent = wizards[i].name; // Запись имени мага в setup-similar-label
-  wizardNode.children[0].style.fill = wizards[i].coatColor; // заливка цветом плаща
-  wizardNode.children[2].style.fill = wizards[i].eyesColor; // заливка цветом глаз
-  setupFragment.appendChild(wizardElement);
-}
+
+// Оформление стиля мага
+var wizardStyle = function (template, objArr) {
+  var setupFragment = document.createDocumentFragment();
+  for (var i = 0; i < wizards.length; i++) {
+    var wizardElement = template.cloneNode(true);
+    var wizardNode = wizardElement.querySelector('.wizard');
+    wizardElement.children[1].textContent = objArr[i].name; // Запись имени мага в setup-similar-label
+    wizardNode.children[0].style.fill = objArr[i].coatColor; // заливка цветом плаща
+    wizardNode.children[2].style.fill = objArr[i].eyesColor; // заливка цветом глаз
+    setupFragment.appendChild(wizardElement);
+  }
+  return setupFragment;
+};
+
+var wizardFragment = wizardStyle(templateElement, wizards);
+
 
 var setupSimilar = document.querySelector('.setup-similar');
 setupSimilar.classList.remove('hidden');
 
 var wizardList = document.querySelector('.setup-similar-list');
-wizardList.appendChild(setupFragment);
+wizardList.appendChild(wizardFragment);
 
