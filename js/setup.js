@@ -50,7 +50,7 @@ var addWizardsSetup = function (objArray, count) {
       coatColor: getRandom(COAT_COLORS),
       eyesColor: getRandom(EYES_COLORS),
     };
-  };
+  }
 };
 
 addWizardsSetup(wizards, wizardsCount);
@@ -76,8 +76,8 @@ var getWizardStyle = function (template, objArr) {
 var wizardFragment = getWizardStyle(templateElement, wizards);
 
 
-var setupSimilar = document.querySelector('.setup-similar');
-setupSimilar.classList.remove('hidden');
+var similarSetup = document.querySelector('.setup-similar');
+similarSetup.classList.remove('hidden');
 
 var wizardList = document.querySelector('.setup-similar-list');
 wizardList.appendChild(wizardFragment);
