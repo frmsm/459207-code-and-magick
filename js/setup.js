@@ -4,7 +4,7 @@ var setup = document.querySelector('.setup');
 
 setup.classList.remove('hidden');
 
-var firstNames = ['Иван',
+var FIRST_NAMES = ['Иван',
   'Хуан Себастьян',
   'Мария',
   'Кристоф',
@@ -13,7 +13,7 @@ var firstNames = ['Иван',
   'Люпита',
   'Вашингтон'];
 
-var lastNames = ['да Марья',
+var LAST_NAMES = ['да Марья',
   'Верон',
   'Мирабелла',
   'Вальц',
@@ -22,20 +22,20 @@ var lastNames = ['да Марья',
   'Нионго',
   'Ирвинг'];
 
-var coatColors = ['rgb(101, 137, 164)',
+var COAT_COLORS = ['rgb(101, 137, 164)',
   'rgb(241, 43, 107)',
   'rgb(146, 100, 161)',
   'rgb(56, 159, 117)',
   'rgb(215, 210, 55)',
   'rgb(0, 0, 0)'];
 
-var eyesColors = ['black',
+var EYES_COLORS = ['black',
   'red',
   'blue',
   'yellow',
   'green'];
 
-var random = function (wizardAttribute) {
+var getRandom = function (wizardAttribute) {
   return wizardAttribute[Math.floor(Math.random() * wizardAttribute.length)];
 };
 
@@ -43,24 +43,24 @@ var random = function (wizardAttribute) {
 var wizards = [];
 var wizardsCount = 4;
 
-var wizardsSetup = function (objArray, count) {
+var addWizardsSetup = function (objArray, count) {
   for (var i = 0; i < count; i++) {
     objArray[i] = {
-      name: random(firstNames) + ' ' + random(lastNames),
-      coatColor: random(coatColors),
-      eyesColor: random(eyesColors),
+      name: getRandom(FIRST_NAMES) + ' ' + getRandom(LAST_NAMES),
+      coatColor: getRandom(COAT_COLORS),
+      eyesColor: getRandom(EYES_COLORS),
     };
-  }
+  };
 };
 
-wizardsSetup(wizards, wizardsCount);
+addWizardsSetup(wizards, wizardsCount);
 
 // Вставка персонажей
 var templateElement = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
 
 // Оформление стиля мага
-var wizardStyle = function (template, objArr) {
+var getWizardStyle = function (template, objArr) {
   var setupFragment = document.createDocumentFragment();
   for (var i = 0; i < wizards.length; i++) {
     var wizardElement = template.cloneNode(true);
@@ -73,7 +73,7 @@ var wizardStyle = function (template, objArr) {
   return setupFragment;
 };
 
-var wizardFragment = wizardStyle(templateElement, wizards);
+var wizardFragment = getWizardStyle(templateElement, wizards);
 
 
 var setupSimilar = document.querySelector('.setup-similar');
