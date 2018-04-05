@@ -43,7 +43,7 @@ var random = function (wizardAttribute) {
 var wizards = [];
 var wizardsCount = 4;
 
-var wizardsSetup = function (objArray,count) {
+var wizardsSetup = function (objArray, count) {
   for (var i = 0; i < count; i++) {
     objArray[i] = {
       name: random(firstNames) + ' ' + random(lastNames),
