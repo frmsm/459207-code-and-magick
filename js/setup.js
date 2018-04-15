@@ -204,6 +204,7 @@ var sendForm = function (e) {
   };
 
   xhr.send(data);
+
   removeEvents();
 };
 
@@ -238,5 +239,3 @@ var addEvents = function () {
 
 setupOpenBlock.addEventListener('click', onSetupClick);
 setupOpenIcon.addEventListener('keydown', onSetupEnterKeyDown);
-
-
