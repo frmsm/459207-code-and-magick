@@ -239,4 +239,56 @@ var addEvents = function () {
 setupOpenBlock.addEventListener('click', onSetupClick);
 setupOpenIcon.addEventListener('keydown', onSetupEnterKeyDown);
 
+var shopElement = document.querySelector('.setup-artifacts-shop');
+var draggedItem = null;
+
+shopElement.addEventListener('click', function (e) {
+  if (e.target.tagName.toLowerCase() === 'img') {
+    draggedItem = e.target;
+  }
+});
+
+var artifactsElement = document.querySelector('.setup-artifacts');
+
+artifactsElement.addEventListener('click', function (e) {
+  if (!draggedItem && e.target.tagName.toLowerCase() === 'img') {
+    draggedItem = e.target;
+    return;
+  } else if (!draggedItem && e.target.tagName.toLowerCase() !== 'img') {
+    return;
+  }
+  if (draggedItem && e.target.tagName.toLowerCase() === 'img') {
+    e.target.parentNode.style.backgroundColor = 'red';
+    var changeCellColor = function () {
+      e.target.parentNode.style.backgroundColor = '';
+    };
+    setTimeout(changeCellColor, 50);
+    return;
+  }
+  var img = document.createElement('img');
+  img.src = draggedItem.src;
+  img.alt = draggedItem.alt;
+  img.width = draggedItem.width;
+  img.height = draggedItem.height;
+  e.target.appendChild(img);
+  draggedItem = null;
+  e.preventDefault();
+});
+
+artifactsElement.addEventListener('dblclick', function (e) {
+  if (e.target.tagName.toLowerCase() === 'img') {
+    e.target.parentNode.style.backgroundColor = '';
+    e.target.parentNode.removeChild(e.target);
+    draggedItem = null;
+  }
+});
+
+artifactsElement.addEventListener('mouseover', function (moseoverEvt) {
+  if (draggedItem) {
+    moseoverEvt.target.style.outline = '2px dashed red';
+    artifactsElement.addEventListener('mouseout', function (mouseoutEvt) {
+      mouseoutEvt.target.style.outline = 'none';
+    });
+  }
+});
 
